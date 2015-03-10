@@ -61,33 +61,14 @@ case $OSTYPE in
     ;;
 esac
 
-function gsm(){
-  git status --short | grep "^ M" | awk '{print $2}' | cat -n | grep "[0-9]"
-}
-function gdm(){
-  git status --short | grep "^ M" | awk '{print $2}' | head -n $1 | tail -n 1 | grep "."
-  git status --short | grep "^ M" | awk '{print $2}' | head -n $1 | tail -n 1 | cpin
-  git status --short | grep "^ M" | awk '{print $2}' | head -n $1 | tail -n 1 | xargs git diff
-}
-function gsu(){
-  git status --short | grep "^??" | awk '{print $2}' | cat -n | grep "[0-9]"
-}
-function gdu(){
-  git status --short | grep "^??" | awk '{print $2}' | head -n $1 | tail -n 1 | grep "."
-  git status --short | grep "^??" | awk '{print $2}' | head -n $1 | tail -n 1 | cpin
-  git status --short | grep "^??" | awk '{print $2}' | head -n $1 | tail -n 1 | xargs cat
-}
-function gbl(){
-  git branch | grep "^  " | awk '{print $1}' | cat -n | grep "[0-9]"
-}
-function gbc(){
-  git branch | grep "^  " | awk '{print $1}' | head -n $1 | tail -n 1 | grep "."
-  git branch | grep "^  " | awk '{print $1}' | head -n $1 | tail -n 1 | cpin
-}
-function gbd(){
-  git branch | grep "^  " | awk '{print $1}' | head -n $1 | tail -n 1 | xargs git branch -d
-}
-function gbco(){
-  git branch | grep "^  " | awk '{print $1}' | head -n $1 | tail -n 1 | cpin
-  git branch | grep "^  " | awk '{print $1}' | head -n $1 | tail -n 1 | xargs git checkout
-}
+alias glsm='git diff --name-only'
+alias glsu='git ls-files --other --exclude-standard'
+alias gdm='git diff $(glsm | pick)'
+alias gdu='cat $(glsu | pick)'
+alias gam='git add $(glsm | pick)'
+alias gau='git add $(glsu | pick)'
+
+alias gbl='git branch | cut -c 3- | pick'
+alias gbc='cpin $(gbl)'
+alias gbco='git checkout $(gbl)'
+
