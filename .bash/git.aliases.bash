@@ -67,8 +67,11 @@ alias gdm='git diff $(glsm | pick)'
 alias gdu='cat $(glsu | pick)'
 alias gam='git add $(glsm | pick)'
 alias gau='git add $(glsu | pick)'
+alias gcm='glsm | pick | cpin'
+alias gcu='glsu | pick | cpin'
 
 alias gbl='git branch | cut -c 3- | pick'
-alias gbc='cpin $(gbl)'
+alias gbc='gbl | cpin'
 alias gbco='git checkout $(gbl)'
+alias gbd='git branch -d $(gbl)'
 
